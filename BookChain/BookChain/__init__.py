@@ -3,6 +3,11 @@ The flask application package.
 """
 
 from flask import Flask
-app = Flask(__name__)
+from flask_bootstrap import Bootstrap
+from BookChain.auth import auth
 
+app = Flask(__name__)
+bootstrap = Bootstrap(app)
+app.register_blueprint(auth)
 import BookChain.views
+

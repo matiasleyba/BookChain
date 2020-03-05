@@ -27,13 +27,32 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BookChain\auth\views.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BookChain\auth\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BookChain\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BookChain\tests\test_base.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BookChain\Utils\Constants.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="BookChain\__init__.py" />
     <Compile Include="BookChain\views.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BookChain\" />
+    <Folder Include="BookChain\auth\" />
     <Folder Include="BookChain\models\" />
+    <Folder Include="BookChain\tests\" />
+    <Folder Include="BookChain\static\images\" />
+    <Folder Include="BookChain\Utils\" />
     <Folder Include="BookChain\static\" />
     <Folder Include="BookChain\static\content\" />
     <Folder Include="BookChain\static\fonts\" />
@@ -41,6 +60,10 @@
     <Folder Include="BookChain\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BookChain\static\content\mystyles.css" />
+    <Content Include="BookChain\templates\404.html" />
+    <Content Include="BookChain\templates\login.html" />
+    <Content Include="BookChain\templates\navbar.html" />
     <Content Include="requirements.txt" />
     <Content Include="BookChain\static\content\bootstrap.css" />
     <Content Include="BookChain\static\content\bootstrap.min.css" />
