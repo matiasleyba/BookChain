@@ -45,3 +45,11 @@ body {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
+.title {
+	font-family :'Segoe UI'
+}
+#search-box.container {
+	width: 50%;
+	padding-bottom : 10px;
+	padding-top: 10px;
+}

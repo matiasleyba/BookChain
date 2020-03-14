@@ -18,10 +18,10 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Registrar Libro</a>
+                <a class="nav-link" href="{{url_for('newbook')}}">Registrar Libro</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Calificar Libro</a>
+                <a class="nav-link" href="#">Mis Libros</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-md-0">
@@ -29,6 +29,9 @@
                    type="text"
                    placeholder="Buscar"
                    aria-label="Search" />
+            {% if current_user.is_authenticated %}
+            <a href="{{ url_for('auth.logout') }}">Logout</a>
+            {% endif %}
             <a class="nav-link" href="#">Mi Perfil</a>
         </form>
     </div>

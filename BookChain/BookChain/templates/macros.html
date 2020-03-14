@@ -1,0 +1,17 @@
+{% macro render_books(books) %}
+    <div class="container" style="width:65%">
+        <div class="card-columns">
+            {%for book in books%}
+            <div class="card">
+                <img class="card-img-top" src="{{url_for('static',filename='images/book.png')}}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.to_dict()['name']}}</h5>
+                    <p class="card-text">{{book.to_dict()['description']}}</p>
+                    <a href="" class="btn btn-outline-info">Detalles</a>
+                    <a href="" class="btn btn-outline-info">Solicitar</a>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+{% endmacro %}

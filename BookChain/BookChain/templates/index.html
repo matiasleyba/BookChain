@@ -1,6 +1,18 @@
-﻿{% extends "layout.html" %}
+﻿{% extends "layout.html" %}{% import 'bootstrap/wtf.html' as wtf%} {% import 'macros.html' as macros %}
 {% block content %}
-<div class="jumbotron">
-    <h1>Contenido</h1>
+<div class="container" style="padding-top:10px">
+    <h2 class="title">Libros</h2>
+
 </div>
+<div class="container" id="search-box">
+
+    <form action="#" onsubmit="handle" method="post">
+        {{search_box_form.hidden_tag() }}
+        {{search_box_form.search(class='form-control',**{'placeholder':'Busqueda'})}}
+
+    </form>
+
+</div>
+{{ macros.render_books(books) }}
+
 {% endblock %}

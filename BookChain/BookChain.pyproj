@@ -17,6 +17,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>BookChain</Name>
     <RootNamespace>BookChain</RootNamespace>
+    <WebBrowserPort>5555</WebBrowserPort>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -33,7 +34,13 @@
     <Compile Include="BookChain\auth\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BookChain\firestore_service.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BookChain\forms.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="BookChain\models.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BookChain\tests\test_base.py">
@@ -50,6 +57,7 @@
     <Folder Include="BookChain\" />
     <Folder Include="BookChain\auth\" />
     <Folder Include="BookChain\models\" />
+    <Folder Include="BookChain\firestore\" />
     <Folder Include="BookChain\tests\" />
     <Folder Include="BookChain\static\images\" />
     <Folder Include="BookChain\Utils\" />
@@ -60,10 +68,18 @@
     <Folder Include="BookChain\templates\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BookChain\firestore\bookchain-flask-firebase-adminsdk-qzuco-2c4b92bd49.json" />
     <Content Include="BookChain\static\content\mystyles.css" />
+    <Content Include="BookChain\static\images\book.png" />
+    <Content Include="BookChain\static\images\bookgreen.png" />
     <Content Include="BookChain\templates\404.html" />
     <Content Include="BookChain\templates\login.html" />
+    <Content Include="BookChain\templates\macros.html">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="BookChain\templates\navbar.html" />
+    <Content Include="BookChain\templates\newbook.html" />
+    <Content Include="BookChain\templates\signup.html" />
     <Content Include="requirements.txt" />
     <Content Include="BookChain\static\content\bootstrap.css" />
     <Content Include="BookChain\static\content\bootstrap.min.css" />

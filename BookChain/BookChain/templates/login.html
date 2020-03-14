@@ -1,34 +1,30 @@
 ﻿{% extends 'layout.html'%} {% import 'bootstrap/wtf.html' as wtf%}{%block
 content%}
-    <div class="container">
-        {{wtf.quick_form(login_form)}}
-    </div>
-<form class="form-signin" action="" method="post">
-    <img class="mb-4"
-         src="{{url_for('static',filename='images/book.png')}}"
-         alt=""
-         width="72"
-         height="72" />
-    <h1 class="h3 mb-3 font-weight-normal">{{user_ip}}</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email"
-           id="inputEmail"
-           class="form-control"
-           placeholder="Email address"
-           required
-           autofocus />
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password"
-           id="inputPassword"
-           class="form-control"
-           placeholder="Password"
-           required />
-    <div class="checkbox mb-3">
-        <label> <input type="checkbox" value="remember-me" /> Recordarme </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" value="submit" type="submit">
-        Iniciar Sesion
-    </button>
-    <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
-</form>
+<!--
+
+<div class="container">
+    {{wtf.quick_form(login_form)}}
+</div>
+-->
+
+
+<div class="container">
+    <form method="post" action="" class="form-signin">
+        {{ login_form.hidden_tag() }}
+        <img class="mb-4"
+             src="{{url_for('static',filename='images/book.png')}}"
+             alt=""
+             width="72"
+             height="72" />
+        <h1 class="h3 mb-3 font-weight-normal">BookChain</h1>
+        {{login_form.username.label(class='sr-only',**{'for':'username'})}}
+        {{login_form.username(class='form-control',**{'placeholder':'Usuario','id':'username'})}}
+      
+        {{login_form.password.label(class='sr-only',**{'for':'password'})}}
+        {{login_form.password(class='form-control',**{'placeholder':'Contraseña','id':'password','type':'password'})}}
+       
+        {{login_form.submit(class='btn btn-lg btn-primary btn-block')}}
+        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+    </form>
+</div>
 {%endblock%}
