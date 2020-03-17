@@ -29,3 +29,9 @@ class BookData():
         self.description = description
         self.state= 'Disponible'
         self.user = user
+class RequestData():
+    def __init__(self,book_id,user,comment):
+        self.user=user
+        self.book_id=book_id
+        self.comment=comment
+    

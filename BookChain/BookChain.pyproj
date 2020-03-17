@@ -49,6 +49,9 @@
     <Compile Include="BookChain\Utils\Constants.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BookChain\Utils\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="BookChain\__init__.py" />
     <Compile Include="BookChain\views.py" />
@@ -70,9 +73,11 @@
   <ItemGroup>
     <Content Include="BookChain\firestore\bookchain-flask-firebase-adminsdk-qzuco-2c4b92bd49.json" />
     <Content Include="BookChain\static\content\mystyles.css" />
+    <Content Include="BookChain\static\images\book-vector.jpg" />
     <Content Include="BookChain\static\images\book.png" />
     <Content Include="BookChain\static\images\bookgreen.png" />
     <Content Include="BookChain\templates\404.html" />
+    <Content Include="BookChain\templates\books.html" />
     <Content Include="BookChain\templates\login.html" />
     <Content Include="BookChain\templates\macros.html">
       <SubType>Code</SubType>

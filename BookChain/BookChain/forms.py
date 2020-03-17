@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField , SelectField
+from wtforms.fields import StringField, PasswordField, SubmitField , SelectField ,TextAreaField ,BooleanField
 from wtforms.validators import DataRequired ,Required
 from BookChain.firestore_service import get_states
 
@@ -17,3 +17,13 @@ class BookForm(FlaskForm):
 class SearchBoxForm(FlaskForm):
     search = StringField('Buscar')
     #submit = SubmitField('Enviar')
+class RequestForm(FlaskForm):
+    book = StringField('book',validators=[DataRequired()])
+    comment = TextAreaField('Comentario',validators=[DataRequired()])
+    submit = SubmitField('Enviar Solicitud')
+class EvaluateRequestForm(FlaskForm):
+    book = StringField('book',validators=[DataRequired()])
+    owner_comment = TextAreaField('Comentario',validators=[DataRequired()]) 
+    approved = SubmitField('Aprobar')
+    denegated = SubmitField('Denegar')
+    

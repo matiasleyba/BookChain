@@ -53,3 +53,45 @@ body {
 	padding-bottom : 10px;
 	padding-top: 10px;
 }
+.card-body {
+	border-top: 1px solid;
+	border-top-color: darkgrey;
+}
+.card {
+	border:2px solid rgba(0,0,0,.125);
+}
+.nav-states ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+}
+
+.nav-states ul li::before {
+	content: "\2022";
+	font-weight: bold;
+	color:#007bff!important;
+	display: inline-block;
+	width: 1em;
+	margin-left: -1em;
+	font-size:x-large;
+}
+.nav-states ul li:nth-child(1):before {
+	color: #28a745!important;
+}
+
+.nav-states ul li:nth-child(2):before {
+	color: #ffc107!important;
+}
+
+.nav-states ul li:nth-child(3):before {
+	color: #007bff!important;
+}
+
+.nav-states li {
+	float: left;
+	text-align: center;
+	padding: 16px;
+}
