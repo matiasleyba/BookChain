@@ -11,7 +11,7 @@ from BookChain.Utils.Constants import Constants
 import unittest
 import wtforms
 
-from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , denegate_request,approve_request
+from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre
 from flask_login import login_required ,current_user
 import os
 
@@ -55,6 +55,8 @@ def index():
     context = {
         'books':books,
         'search_box_form':search_box_form,
+        'get_genre':get_genre,
+        'get_lang':get_lang,
         'request_form':request_form,
         'title':'Libros',
         'constants':Constants,
@@ -96,6 +98,8 @@ def mybooks():
     context = {
         'books':books,
         'get_request': get_request,
+        'get_genre':get_genre,
+        'get_lang':get_lang,
         'search_box_form':search_box_form,
         'evaluate_request_form':evaluate_request_form,
         'title':'Mis Libros',
@@ -112,12 +116,16 @@ def newbook():
     """Renders the contact page."""
     book_form=BookForm()
     user = current_user.id
+    genres = get_genres()
+    langs = get_langs()
+    book_form.genre.choices = [(g.id, g.to_dict()['name']) for g in genres]
+    book_form.lang.choices = [(g.id, g.to_dict()['name']) for g in langs]
     context = {
         'book_form' : book_form
         }
     if book_form.validate_on_submit():
-        book_data = BookData(book_form.name.data,book_form.description.data,user)
-        create_book(book_data)
+        #book_data = BookData(book_form.data,user)
+        create_book(book_form.data,user)
         flash('Libro creado')
         return redirect(url_for('index'))
 

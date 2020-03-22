@@ -1,9 +1,21 @@
 {% extends "layout.html" %}{% import 'bootstrap/wtf.html' as wtf%}
 {% block content %}
-<div class="jumbotron">
-    <div class="container">
-        <h3>Registrar Libro</h3>
-        {{wtf.quick_form(book_form)}}
+<div id="leftbox">
+    <div class="row">
+        <div class="col-4">
+            <div style="display:none;" class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Mis Libros</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Libros Solicitados</a>
+            </div>
+        </div>
     </div>
 </div>
-{% endblock %}
+<div id="middlebox">
+    <div class="jumbotron">
+        <div class="container">
+            <h3>Registrar Libro</h3>
+            {{wtf.quick_form(book_form)}}
+        </div>
+    </div>
+</div>
+    {% endblock %}

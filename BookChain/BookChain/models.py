@@ -24,10 +24,12 @@ class UserModel(UserMixin):
 
 
 class BookData():
-    def __init__(self,name,description,user):
-        self.name= name 
-        self.description = description
-        self.state= 'Disponible'
+    def __init__(self,data,user):
+        self.name= data['name'] 
+        self.description = data['description']
+        self.author = data['author']
+        self.genre = data['genre']
+        self.url_image = data['image_url']
         self.user = user
 class RequestData():
     def __init__(self,book_id,user,comment):

@@ -9,9 +9,13 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Enviar')
 
 class BookForm(FlaskForm):
-    name = StringField('Book Name' , validators=[DataRequired()])
-    description = StringField('Book Description' , validators=[DataRequired()])
+    name = StringField('Nombre' , validators=[DataRequired()])
+    description = StringField('Descripcion' , validators=[DataRequired()])
+    genre = SelectField('Genero', validators=[DataRequired()])
+    author = StringField('Autor',validators=[DataRequired()])
+    lang = SelectField('Genero', validators=[DataRequired()])
     #state = SelectField('State', choices=[(state.id,state.to_dict()['value']) for state in get_states()], validators = [Required()])
+    image_url = StringField('URL Portada')
     submit = SubmitField('Crear')
 
 class SearchBoxForm(FlaskForm):

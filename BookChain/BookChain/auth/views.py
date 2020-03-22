@@ -25,14 +25,14 @@ def login():
                  user_data = UserData(username,password)
                  user = UserModel(user_data)
                  login_user(user)
-                 flash('Welcome',category='notice')
+                 flash('Bienvenido {}'.format(user.id),category='notice')
                  return redirect(url_for('index'))
                  
              else:
-                 flash('Credentials error ')
+                 flash('Contraseña incorrecta')
 
          else : 
-            flash('Credentials Fail')
+            flash('Usuario no encontrado')
 
 
          
@@ -61,11 +61,11 @@ def signup():
 
             user = UserModel(user_data)
             login_user(user)
-            flash('Welcome')
+            flash('Bienvenido {}'.format(user.id),category='notice')
 
             return redirect(url_for('index'))
         else:
-            flash('User already exists')
+            flash('El usuario ya esta registrado')
     return render_template('signup.html',**context)
 
 
@@ -73,6 +73,6 @@ def signup():
 @login_required
 def logout():
     logout_user()
-    flash('Bye')
+    flash('Hasta la vuelta')
     return redirect(url_for('auth.login'))
 

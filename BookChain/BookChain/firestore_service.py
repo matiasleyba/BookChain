@@ -39,7 +39,20 @@ def get_state_available():
     docs = query.stream()
     doc = list(docs)[0]
     return doc
-
+def get_genres():
+    genres_ref=db.collection('Genres').get()
+    docs = list(genres_ref)
+    return docs
+def get_genre(genre):
+    genre_ref = db.document('Genres/{}'.format(genre.id)).get()
+    return genre_ref.to_dict()['name']
+def get_langs():
+    langs_ref=db.collection('Langs').get()
+    docs = list(langs_ref)
+    return docs
+def get_lang(lang):
+    lang_ref = db.document('Langs/{}'.format(lang.id)).get()
+    return lang_ref.to_dict()['name']
 def get_books(filter='',my_books=False):
     user = current_user
     #singleton
@@ -54,15 +67,18 @@ def get_books(filter='',my_books=False):
         docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='available')]
     else:
         docs = [x for x in docs if x.to_dict()['user'].id == user.id]
-    
+   
     return docs
     
 
-def create_book(book_data):
+def create_book(book_data,user):
     book_ref=db.collection('Books').document()
     state = db.document('States/available')
-    user = db.document('Users/{}'.format(book_data.user))
-    book_ref.set({'name':book_data.name , 'description':book_data.description , 'state': state , 'user':user})
+    genre = db.document('Genres/{}'.format(book_data['genre']))
+    lang= db.document('Langs/{}'.format(book_data['lang']))
+    user = db.document('Users/{}'.format(user))
+    book_ref.set(book_data)
+    book_ref.update({'lang':lang,'genre':genre,'state': state , 'user':user})
 
 def send_request(request_data):
     request_ref=db.collection('Requests').document()
