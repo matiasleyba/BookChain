@@ -76,8 +76,10 @@
     <Content Include="BookChain\static\images\book-vector.jpg" />
     <Content Include="BookChain\static\images\book.png" />
     <Content Include="BookChain\static\images\bookgreen.png" />
+    <Content Include="BookChain\static\images\notification_alert.png" />
     <Content Include="BookChain\templates\404.html" />
     <Content Include="BookChain\templates\books.html" />
+    <Content Include="BookChain\templates\layout.html" />
     <Content Include="BookChain\templates\login.html" />
     <Content Include="BookChain\templates\macros.html">
       <SubType>Code</SubType>
@@ -110,7 +112,6 @@
     <Content Include="BookChain\static\scripts\_references.js" />
     <Content Include="BookChain\templates\contact.html" />
     <Content Include="BookChain\templates\index.html" />
-    <Content Include="BookChain\templates\layout.html" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

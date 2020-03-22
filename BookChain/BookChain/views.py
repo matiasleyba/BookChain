@@ -11,7 +11,7 @@ from BookChain.Utils.Constants import Constants
 import unittest
 import wtforms
 
-from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request
+from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , denegate_request,approve_request
 from flask_login import login_required ,current_user
 import os
 
@@ -50,10 +50,7 @@ def index():
     else:
         books = get_books()
 
-    if request_form.validate_on_submit():
-        request_data= RequestData(request_form.book.data,user,request_form.comment.data)
-        send_request(request_data)
-        flash('Solicitud Enviada')
+    
 
     context = {
         'books':books,
@@ -63,6 +60,11 @@ def index():
         'constants':Constants,
         'my_books':False
         }
+    if request_form.validate_on_submit():
+        request_data= RequestData(request_form.book.data,user,request_form.comment.data)
+        send_request(request_data)
+        flash('Solicitud Enviada')
+        return render_template('index.html' ,**context)
     return render_template(
         'index.html' ,**context
     )
@@ -80,6 +82,14 @@ def mybooks():
     else:
         books = get_books(my_books=True)
 
+    if evaluate_request_form.validate_on_submit():
+        if evaluate_request_form.approved.data:
+            approve_request(evaluate_request_form.book.data)
+            flash('Prestamo Aprobado')
+        else:
+            denegate_request(evaluate_request_form.book.data)
+            flash('Prestamo Rechazado')
+        
     
     #request = get_request('3717pkg9ZlssEk5BCuqg')
 

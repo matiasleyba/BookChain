@@ -51,9 +51,9 @@ def get_books(filter='',my_books=False):
        
 
     if(my_books==False):
-        docs = [x for x in docs if (x.to_dict()['user'] != user.id and x.to_dict()['state'].id=='available')]
+        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='available')]
     else:
-        docs = [x for x in docs if x.to_dict()['user'] == user.id]
+        docs = [x for x in docs if x.to_dict()['user'].id == user.id]
     
     return docs
     
@@ -61,7 +61,8 @@ def get_books(filter='',my_books=False):
 def create_book(book_data):
     book_ref=db.collection('Books').document()
     state = db.document('States/available')
-    book_ref.set({'name':book_data.name , 'description':book_data.description , 'state': state , 'user':book_data.user})
+    user = db.document('Users/{}'.format(book_data.user))
+    book_ref.set({'name':book_data.name , 'description':book_data.description , 'state': state , 'user':user})
 
 def send_request(request_data):
     request_ref=db.collection('Requests').document()
@@ -89,6 +90,15 @@ def get_request(book_id):
         return list(docs)[0].to_dict()['comment']
     except IndexError:
         return ''
+
+def approve_request(book_id):
+    book = db.collection('Books').document(book_id)
+    state = db.document('States/loaned')
+    book.update({'state':state})
+def denegate_request(book_id):
+    book = db.collection('Books').document(book_id)
+    state = db.document('States/available')
+    book.update({'state':state})
     
   
 

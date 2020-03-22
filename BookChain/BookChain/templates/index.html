@@ -1,18 +1,29 @@
-﻿{% extends "layout.html" %}{% import 'bootstrap/wtf.html' as wtf%} {% import 'macros.html' as macros %}
+{% extends "layout.html" %}{% import 'bootstrap/wtf.html' as wtf%} {% import 'macros.html' as macros %}
 {% block content %}
-<div class="container" style="padding-top:10px">
-    <h2 class="title">{{title}}</h2>
-
+<div id="leftbox">
+    <div class="row">
+        <div class="col-4">
+            <div style="display:none" class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Mis Libros</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Libros Solicitados</a>
+            </div>
+        </div>
+    </div>
 </div>
-<div class="container" id="search-box">
+<div id="middlebox">
+    <div class="container" style="padding-top:10px">
+        <h2 class="title">{{title}}</h2>
 
-    <form action="#" onsubmit="handle" method="post">
-        {{search_box_form.hidden_tag() }}
-        {{search_box_form.search(class='form-control',**{'placeholder':'Busqueda'})}}
+    </div>
+    <div class="container" id="search-box">
 
-    </form>
+        <form action="#" onsubmit="handle" method="post">
+            {{search_box_form.hidden_tag() }}
+            {{search_box_form.search(class='form-control',**{'placeholder':'Busqueda'})}}
 
+        </form>
+
+    </div>
+    {{ macros.render_books(books,None,constants,my_books,request_form) }}
 </div>
-{{ macros.render_books(books,None,constants,my_books,request_form) }}
-
-{% endblock %}
+    {% endblock %}

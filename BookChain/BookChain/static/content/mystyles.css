@@ -3,7 +3,6 @@ body {
 	height: 100%;
 	width: 100%;
 }
-
 body {
 	-ms-flex-align: center;
 	-ms-flex-pack: center;
@@ -60,6 +59,9 @@ body {
 .card {
 	border:2px solid rgba(0,0,0,.125);
 }
+.navbar {
+	border-bottom: 1px solid #0062cc3d;
+}
 .nav-states ul {
 	list-style: none;
 	margin: 0;
@@ -89,9 +91,44 @@ body {
 .nav-states ul li:nth-child(3):before {
 	color: #007bff!important;
 }
+#page-container {
+	position: relative;
+	min-height: 100vh;
+}
 
+#content-wrap {
+	padding-bottom: 2.5rem; /* Footer height */
+}
 .nav-states li {
 	float: left;
 	text-align: center;
 	padding: 16px;
+}
+#middlebox {
+	float: left;
+	/*background: Green*/;
+	width: 62%;
+	/*height: 280px;*/
+}
+#leftbox {
+	float: left;
+	/*background: Red*/;
+	width: 19%;
+	/*height: 280px;*/
+}
+#footer {
+	clear: both;
+	position: relative;
+	height: 100px;
+	margin-top: -200px;
+}
+#left-filter {
+	padding-top: 22%;
+	padding-left: 12%;
+}
+#filter-title {
+	border-left: 4px solid #0062cc3d;
+}
+#filter-title h4{
+	margin-left : 2px;
 }

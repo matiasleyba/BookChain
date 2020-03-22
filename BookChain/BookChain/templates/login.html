@@ -1,30 +1,45 @@
-﻿{% extends 'layout.html'%} {% import 'bootstrap/wtf.html' as wtf%}{%block
-content%}
-<!--
-
-<div class="container">
-    {{wtf.quick_form(login_form)}}
+{% extends 'layout.html'%}{% import 'bootstrap/wtf.html' as wtf%}
+{%block content%}
+<div id="leftbox">
+    <div class="row">
+        <div class="col-4">
+            <div style="display:none;" class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Mis Libros</a>
+                <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Libros Solicitados</a>
+            </div>
+        </div>
+    </div>
 </div>
--->
+<div id="middlebox">
+    <div class="container">
+        <form method="post" action="" class="form-signin">
+            {{ login_form.hidden_tag() }}
+            <img class="mb-4"
+                 src="{{url_for('static',filename='images/book.png')}}"
+                 alt=""
+                 width="72"
+                 height="72" />
+            <h1 class="h3 mb-3 font-weight-normal">BookChain</h1>
+            {{login_form.username.label(class='sr-only',**{'for':'username'})}}
+            {{login_form.username(class='form-control',**{'placeholder':'Usuario','id':'username'})}}
 
+            {{login_form.password.label(class='sr-only',**{'for':'password'})}}
+            {{login_form.password(class='form-control',**{'placeholder':'Contraseña','id':'password','type':'password'})}}
 
-<div class="container">
-    <form method="post" action="" class="form-signin">
-        {{ login_form.hidden_tag() }}
-        <img class="mb-4"
-             src="{{url_for('static',filename='images/book.png')}}"
-             alt=""
-             width="72"
-             height="72" />
-        <h1 class="h3 mb-3 font-weight-normal">BookChain</h1>
-        {{login_form.username.label(class='sr-only',**{'for':'username'})}}
-        {{login_form.username(class='form-control',**{'placeholder':'Usuario','id':'username'})}}
-      
-        {{login_form.password.label(class='sr-only',**{'for':'password'})}}
-        {{login_form.password(class='form-control',**{'placeholder':'Contraseña','id':'password','type':'password'})}}
-       
-        {{login_form.submit(class='btn btn-lg btn-primary btn-block')}}
-        <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
-    </form>
+            {{login_form.submit(class='btn btn-lg btn-primary btn-block')}}
+            <!--<p class="mt-5 mb-3 text-muted">&copy; 2020</p>-->
+        </form>
+    </div>
 </div>
+<style>
+    .navbar-brand {
+        display:none;
+    }
+    .navbar-toggler{
+        display:none;
+    }
+    .navbar-nav {
+        display:none;
+    }
+</style>
 {%endblock%}
