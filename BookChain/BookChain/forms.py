@@ -13,7 +13,7 @@ class BookForm(FlaskForm):
     description = StringField('Descripcion' , validators=[DataRequired()])
     genre = SelectField('Genero', validators=[DataRequired()])
     author = StringField('Autor',validators=[DataRequired()])
-    lang = SelectField('Genero', validators=[DataRequired()])
+    lang = SelectField('Idioma', validators=[DataRequired()])
     #state = SelectField('State', choices=[(state.id,state.to_dict()['value']) for state in get_states()], validators = [Required()])
     image_url = StringField('URL Portada')
     submit = SubmitField('Crear')

@@ -53,7 +53,7 @@ def get_langs():
 def get_lang(lang):
     lang_ref = db.document('Langs/{}'.format(lang.id)).get()
     return lang_ref.to_dict()['name']
-def get_books(filter='',my_books=False):
+def get_books(filter='',my_books=False,requested_books=False):
     user = current_user
     #singleton
     query = db.collection('Books')
@@ -63,11 +63,12 @@ def get_books(filter='',my_books=False):
         docs = [s for s in docs if filter.lower() in s.to_dict()['name'].lower()]
        
 
-    if(my_books==False):
-        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='available')]
-    else:
+    if(my_books==True):
         docs = [x for x in docs if x.to_dict()['user'].id == user.id]
-   
+    elif (requested_books==True):
+        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='loaned' or x.to_dict()['state'].id=='requested')]
+    else:
+        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='available')]
     return docs
     
 

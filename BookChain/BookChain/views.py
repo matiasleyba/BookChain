@@ -58,15 +58,18 @@ def index():
         'get_genre':get_genre,
         'get_lang':get_lang,
         'request_form':request_form,
-        'title':'Libros',
+        'title':'Libros Disponibles',
         'constants':Constants,
-        'my_books':False
+        'my_books':False,
+        'requested_books':False
         }
     if request_form.validate_on_submit():
         request_data= RequestData(request_form.book.data,user,request_form.comment.data)
         send_request(request_data)
         flash('Solicitud Enviada')
-        return render_template('index.html' ,**context)
+        response = make_response(redirect('/index'))
+        return response
+        #return render_template('index.html' ,**context)
     return render_template(
         'index.html' ,**context
     )
@@ -80,7 +83,7 @@ def mybooks():
     evaluate_request_form = EvaluateRequestForm()
     if search_box_form.validate_on_submit():
         search = search_box_form.search.data
-        books = get_books(search,True)
+        books = get_books(search,my_books=True)
     else:
         books = get_books(my_books=True)
 
@@ -88,9 +91,13 @@ def mybooks():
         if evaluate_request_form.approved.data:
             approve_request(evaluate_request_form.book.data)
             flash('Prestamo Aprobado')
+            response = make_response(redirect('/mybooks'))
+            return response
         else:
             denegate_request(evaluate_request_form.book.data)
             flash('Prestamo Rechazado')
+            response = make_response(redirect('/mybooks'))
+            return response
         
     
     #request = get_request('3717pkg9ZlssEk5BCuqg')
@@ -102,12 +109,44 @@ def mybooks():
         'get_lang':get_lang,
         'search_box_form':search_box_form,
         'evaluate_request_form':evaluate_request_form,
-        'title':'Mis Libros',
+        'title':'Mis Libros - Registrados',
         'constants':Constants,
-        'my_books':True
+        'my_books':True,
+        'requested_books':False
     }
     return render_template(
         'books.html' ,**context
+    )
+@app.route('/requested-books',methods=['GET','POST'])
+@login_required
+def requested_books():
+    """Renders the index page."""
+    search_box_form = SearchBoxForm()
+    requests = get_requests()
+    evaluate_request_form = EvaluateRequestForm()
+    if search_box_form.validate_on_submit():
+        search = search_box_form.search.data
+        books = get_books(search,requested_books=True)
+    else:
+        books = get_books(requested_books=True)
+
+           
+    #request = get_request('3717pkg9ZlssEk5BCuqg')
+
+    context = {
+        'books':books,
+        'get_request': get_request,
+        'get_genre':get_genre,
+        'get_lang':get_lang,
+        'search_box_form':search_box_form,
+        'evaluate_request_form':None,
+        'title':'Mis Libros - Solicitados',
+        'constants':Constants,
+        'my_books':True,
+        'requested_books':True
+    }
+    return render_template(
+        'requested-books.html' ,**context
     )
 
 @app.route('/newbook',methods=['GET','POST'])

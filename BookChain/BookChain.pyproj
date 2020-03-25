@@ -78,6 +78,7 @@
     <Content Include="BookChain\static\images\bookgreen.png" />
     <Content Include="BookChain\static\images\notification_alert.png" />
     <Content Include="BookChain\templates\404.html" />
+    <Content Include="BookChain\templates\requested-books.html" />
     <Content Include="BookChain\templates\books.html" />
     <Content Include="BookChain\templates\layout.html" />
     <Content Include="BookChain\templates\login.html" />
