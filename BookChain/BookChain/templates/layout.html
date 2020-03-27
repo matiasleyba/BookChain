@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <title>
     {% block title %}BookChain{%
@@ -15,7 +16,8 @@
 {%- endblock head %}
 <body {% block body_attribs %} class="text-center" {% endblock body_attribs %}>
     {% block body %}
-    <div id="content">
+    <div class="main-container">
+        <!--<div id="content">-->
         {% block navbar %}
         {% include 'navbar.html' %}
         {%- endblock navbar %}
@@ -30,27 +32,29 @@
 
         {% block content -%}
         {%- endblock content %}
-    </div>
-    <div id="footer">
-        {% block footer %}
-        &copy; Copyright 2010 by <a href="http://domain.invalid/">you</a>.
+        <!--</div>-->
+        <footer>
+            <p style="margin-top:10px">Contacto</p>
+            <p>bookchainsupport@gmail.com</p>
+            <p class="text-center">&copy; Copyright 2020 by BookChain.</p>
+        </footer>
+        
+        {% block scripts %}
+        {{ super() }}
+        <script>
+            $("document").ready(function () {
+                setTimeout(function () {
+                    $(".alert").remove();
+                }, 4000); // 5 secs
+
+            });
+
+        </script>
+
         {% endblock %}
     </div>
-    {% block scripts %}
-    {{ super() }}
-    <script>
-        $("document").ready(function () {
-            setTimeout(function () {
-                $(".alert").remove();
-            }, 5000); // 5 secs
-
-        });
-
-    </script>
-
-    {% endblock %}
-    {% endblock
-    body %}
+        {% endblock
+        body %}
 
 </body>
 

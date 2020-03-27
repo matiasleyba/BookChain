@@ -37,6 +37,9 @@
     <Compile Include="BookChain\firestore_service.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BookChain\sendmail.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="BookChain\forms.py">
       <SubType>Code</SubType>
     </Compile>
@@ -61,6 +64,7 @@
     <Folder Include="BookChain\auth\" />
     <Folder Include="BookChain\models\" />
     <Folder Include="BookChain\firestore\" />
+    <Folder Include="BookChain\flask-mail\" />
     <Folder Include="BookChain\tests\" />
     <Folder Include="BookChain\static\images\" />
     <Folder Include="BookChain\Utils\" />

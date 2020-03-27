@@ -3,6 +3,9 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
+from flask import Flask
+from flask_mail import Mail, Message
+from BookChain.sendmail import EmailController
 from flask import render_template,redirect,url_for,make_response,flash,request
 from BookChain import app,bootstrap
 from BookChain.forms import BookForm,SearchBoxForm,RequestForm ,EvaluateRequestForm
@@ -18,6 +21,9 @@ import os
 
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
+
+
+
 
 @app.cli.command()
 def test():
@@ -41,6 +47,8 @@ def home():
 @login_required
 def index():
     """Renders the index page."""
+    #EmailController.SendEmail()
+    
     search_box_form = SearchBoxForm()
     request_form = RequestForm()
     user = current_user.id
