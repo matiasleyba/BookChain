@@ -28,7 +28,7 @@ def get_user(user_id):
 
 def user_put(user_data):
     user_ref = db.collection('Users').document(user_data.username)
-    user_ref.set({'password': user_data.password})
+    user_ref.set({'password': user_data.password , 'name':user_data.name , 'last_name':user_data.last_name , 'contact': user_data.contact})
 
 def get_states():
     return db.collection('States').get()
@@ -86,7 +86,7 @@ def send_request(request_data):
     user = db.collection('Users').document(request_data.user)
     book = db.collection('Books').document(request_data.book_id)
     state = db.document('States/requested')
-    request_ref.set({'book':book,'user':user,'comment':request_data.comment})
+    request_ref.set({'book':book,'user':user,'days':request_data.days,'comment':request_data.comment,'send_email':False})
     book.update({'state':state})
 
 def get_requests():
@@ -103,8 +103,10 @@ def get_request(book_id):
     docs = list(query.get())
     docs.sort(key=lambda x: x.create_time.seconds, reverse=True)
     try:
-        print(list(docs)[0].to_dict()['comment'])
-        return list(docs)[0].to_dict()['comment']
+        request = {
+            'comment':list(docs)[0].to_dict()['comment']
+        }
+        return request
     except IndexError:
         return ''
 

@@ -58,7 +58,6 @@ def index():
     else:
         books = get_books()
 
-    
 
     context = {
         'books':books,
@@ -72,9 +71,10 @@ def index():
         'requested_books':False
         }
     if request_form.validate_on_submit():
-        request_data= RequestData(request_form.book.data,user,request_form.comment.data)
+        request_data= RequestData(request_form.book.data,user,request_form.days.data,request_form.comment.data)
         send_request(request_data)
-        flash('Solicitud Enviada')
+        #mandar mail
+        flash('Solicitud Enviada , se notificara al propietario.')
         response = make_response(redirect('/index'))
         return response
         #return render_template('index.html' ,**context)
@@ -125,6 +125,7 @@ def mybooks():
     return render_template(
         'books.html' ,**context
     )
+
 @app.route('/requested-books',methods=['GET','POST'])
 @login_required
 def requested_books():

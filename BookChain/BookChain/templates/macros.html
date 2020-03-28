@@ -69,6 +69,10 @@
                                     <br />
                                     <label style="color:grey">{{book.to_dict()['description']}}</label>
                                     <br />
+                                    <label>Paginas</label>
+                                    <br />
+                                    <label style="color:grey">{{book.to_dict()['page_count']}}</label>
+                                    <br />
                                     <label>Autor</label>
                                     <br />
                                     <label style="color:grey">{{book.to_dict()['author']}}</label>
@@ -106,7 +110,11 @@
                                 </div>
                                 <div class="modal-body">
                                     {{request_form.book(**{'id':'book','type':'hidden','value':book.id})}}
-                                    {{request_form.comment(class='form-control',**{'placeholder':'Comenterio','id':'username'})}}
+                                    <label>Cantidad de dias</label>
+                                    {{request_form.days(class='form-control',**{'placeholder':'Cantidad de dias','id':'days'})}}
+                                    <label>Comentario</label>
+                                    {{request_form.comment(class='form-control',**{'placeholder':'Comenterio','id':'comment'})}}
+
                                     <!--<input type="hidden" value="foo" name="user_id" />-->
 
                                 </div>
@@ -137,15 +145,21 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    {% set x = get_request(book.id) %}
+                                    <label>Cantidad de dias</label>
+                                    <label style="color: grey">{{x.comment}}</label>
+                                    <br />
                                     <label>Comentario Solicitante</label>
                                     <br />
-                                    <label style="color: grey">{{get_request(book.id)}}</label>
+                                    <label style="color: grey">{{x.comment}}</label>
                                     {{request_form.book(**{'id':'book','type':'hidden','value':book.id})}}
-                                    {{request_form.owner_comment(class='form-control',**{'placeholder':'Comentarios','id':'username'})}}
+                                    {{request_form.owner_comment(class='form-control',**{'placeholder':'Comentario','id':'comment'})}}
                                 </div>
                                 <div class="modal-footer">
+
                                     {{request_form.denegated(class='btn btn-secondary')}}
                                     {{request_form.approved(class='btn btn-primary')}}
+
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Aprobar</button>-->
                                     <!--<button type="button" class="btn btn-primary">Denegar</button>-->
                                 </div>
