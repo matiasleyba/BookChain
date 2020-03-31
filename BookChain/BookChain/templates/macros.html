@@ -1,5 +1,5 @@
 {% import 'bootstrap/wtf.html' as wtf%}{% macro render_books(books,get_request,constants,my_books,requested_books,request_form,get_lang,get_genre) %}
-<div class="container" style="width:90%" >
+<div class="container" >
     <!--<div class="card-columns">-->
     <div class="row">
         {%for book in books%}
@@ -22,7 +22,7 @@
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailsModal{{book.id}}">
                                 Detalles
                             </button>
-
+                            
 
                             {% if (book.to_dict()['state'].id==constants.STATE_AVAILABLE and my_books==False and requested_books==False)%}
                             <!-- Button trigger modal -->
@@ -147,18 +147,56 @@
                                 <div class="modal-body">
                                     {% set x = get_request(book.id) %}
                                     <label>Cantidad de dias</label>
-                                    <label style="color: grey">{{x.comment}}</label>
+                                    <br />
+                                    <label style="color: grey">{{x.days}}</label>
                                     <br />
                                     <label>Comentario Solicitante</label>
                                     <br />
                                     <label style="color: grey">{{x.comment}}</label>
+                                    <br />
+
                                     {{request_form.book(**{'id':'book','type':'hidden','value':book.id})}}
-                                    {{request_form.owner_comment(class='form-control',**{'placeholder':'Comentario','id':'comment'})}}
+
+                                    {{request_form.request_id(**{'id':'request_id','type':'hidden','value':x.id})}}
+                                    {% if x.send_email==False%}
+
+                                    {{request_form.owner_comment(class='form-control',**{'placeholder':'Comentario','id':'owner_comment'})}}
+
+                                    {%else%}
+                                    {{request_form.owner_comment(class='form-control',readonly='readonly',**{'type':'hidden','id':'owner_comment'})}}
+                                    <script>document.getElementById('owner_comment').value = `{{x.owner_comment}}`; </script>
+
+
+
+
+                                    {% endif %}
+                                    <hr />
+                                    {% if x.send_email %}
+                                    <label>Datos del solicitante :</label>
+                                    <br />
+                                    <label style="color: grey">{{x.user.to_dict()['name']}} {{x.user.to_dict()['last_name']}}</label>
+                                    <br />
+                                    <label>Numero de contacto :</label>
+                                    <br />
+                                    <label style="color: grey">{{x.user.to_dict()['contact']}}</label>
+                                    <br />
+                                    <label>Mail :</label>
+                                    <br />
+                                    <label style="color: grey">{{x.user.id}}</label>
+                                    {% endif %}
+
                                 </div>
                                 <div class="modal-footer">
 
                                     {{request_form.denegated(class='btn btn-secondary')}}
+                                    {% if x.send_email==False%}
+
                                     {{request_form.approved(class='btn btn-primary')}}
+                                    {%else%}
+                                    {{request_form.delivered(class='btn btn-primary')}}
+
+                                    {% endif%}
+
 
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Aprobar</button>-->
                                     <!--<button type="button" class="btn btn-primary">Denegar</button>-->

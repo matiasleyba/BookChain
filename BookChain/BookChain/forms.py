@@ -18,7 +18,7 @@ class SignupForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     name = StringField('Nombre', validators=[DataRequired()])
     last_name = StringField('Apellido', validators=[DataRequired()])
-    contact = StringField('Telefono',validators=[DataRequired()])
+    contact = StringField('Numero de contacto',validators=[DataRequired()])
     submit = SubmitField('Enviar')
 
 class BookForm(FlaskForm):
@@ -41,10 +41,12 @@ class RequestForm(FlaskForm):
     submit = SubmitField('Enviar Solicitud')
 class EvaluateRequestForm(FlaskForm):
     book = StringField('book',validators=[DataRequired()])
+    request_id = StringField('request_id',validators=[DataRequired()])
     owner_comment = TextAreaField('Comentario',validators=[DataRequired()])
     #contact = StringField('Descripcion de contacto del propietario del libro',validators=[DataRequired()])
-    user = StringField('Usuario que solicito el libro',validators=[DataRequired()])
-    reputation = IntegerField('Reputacion',validators=[DataRequired()])
+    #user = StringField('Usuario que solicito el libro',validators=[DataRequired()])
+    #reputation = IntegerField('Reputacion',validators=[DataRequired()])
     approved = SubmitField('Aprobar')
     denegated = SubmitField('Denegar')
+    delivered = SubmitField('Marcar como entregado')
     

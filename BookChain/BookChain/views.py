@@ -14,7 +14,7 @@ from BookChain.Utils.Constants import Constants
 import unittest
 import wtforms
 
-from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre
+from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre,delivered_request
 from flask_login import login_required ,current_user
 import os
 
@@ -97,15 +97,24 @@ def mybooks():
 
     if evaluate_request_form.validate_on_submit():
         if evaluate_request_form.approved.data:
-            approve_request(evaluate_request_form.book.data)
-            flash('Prestamo Aprobado')
+            approve_request(evaluate_request_form.request_id.data,evaluate_request_form.owner_comment.data)
+            flash('La solicitud fue aprobada , ahora puedes ver los datos del solicitante y coordinar la entrega del libro.Cuando entregues el libro marca el libro como entregado.')
+            flash('Cuando entregues el libro marca el libro como entregado.')
             response = make_response(redirect('/mybooks'))
             return response
-        else:
+        elif evaluate_request_form.denegated.data:
             denegate_request(evaluate_request_form.book.data)
             flash('Prestamo Rechazado')
             response = make_response(redirect('/mybooks'))
             return response
+        else:
+            delivered_request(evaluate_request_form.book.data)
+            flash('Se marco el libro como entregado , gracias por colaborar !')
+            response = make_response(redirect('/mybooks'))
+            return response
+
+
+
         
     
     #request = get_request('3717pkg9ZlssEk5BCuqg')

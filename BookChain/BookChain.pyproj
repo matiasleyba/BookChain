@@ -78,6 +78,7 @@
     <Content Include="BookChain\firestore\bookchain-flask-firebase-adminsdk-qzuco-2c4b92bd49.json" />
     <Content Include="BookChain\static\content\mystyles.css" />
     <Content Include="BookChain\static\images\book-vector.jpg" />
+    <Content Include="BookChain\static\images\book-white.png" />
     <Content Include="BookChain\static\images\book.png" />
     <Content Include="BookChain\static\images\bookgreen.png" />
     <Content Include="BookChain\static\images\notification_alert.png" />

@@ -86,7 +86,7 @@ def send_request(request_data):
     user = db.collection('Users').document(request_data.user)
     book = db.collection('Books').document(request_data.book_id)
     state = db.document('States/requested')
-    request_ref.set({'book':book,'user':user,'days':request_data.days,'comment':request_data.comment,'send_email':False})
+    request_ref.set({'book':book,'user':user,'days':request_data.days,'comment':request_data.comment,'send_email':False,'owner_comment':''})
     book.update({'state':state})
 
 def get_requests():
@@ -102,21 +102,31 @@ def get_request(book_id):
     #docs = query.stream()
     docs = list(query.get())
     docs.sort(key=lambda x: x.create_time.seconds, reverse=True)
+    user = db.collection('Users').document(list(docs)[0].to_dict()['user'].id).get()
     try:
         request = {
-            'comment':list(docs)[0].to_dict()['comment']
+            'comment':list(docs)[0].to_dict()['comment'],
+            'days':list(docs)[0].to_dict()['days'],
+            'send_email':list(docs)[0].to_dict()['send_email'],
+            'id':list(docs)[0].id,
+            'owner_comment':list(docs)[0].to_dict()['owner_comment'],
+            'user':user
         }
         return request
     except IndexError:
         return ''
 
-def approve_request(book_id):
-    book = db.collection('Books').document(book_id)
-    state = db.document('States/loaned')
-    book.update({'state':state})
+def approve_request(request_id,owner_comment):
+    request_ref=db.collection('Requests').document(request_id)
+    request_ref.update({'send_email':True,'owner_comment':owner_comment})
+    #mail
 def denegate_request(book_id):
     book = db.collection('Books').document(book_id)
     state = db.document('States/available')
+    book.update({'state':state})
+def delivered_request(book_id):
+    book = db.collection('Books').document(book_id)
+    state = db.document('States/loaned')
     book.update({'state':state})
     
   

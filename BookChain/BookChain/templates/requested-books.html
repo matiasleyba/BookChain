@@ -24,10 +24,11 @@
         <h2 class="title">{{title}}</h2>
     </div>
     <div class="container" id="search-box">
-        
-        <form action="#" onsubmit="handle" method="post">
+
+        <!-- Search form -->
+        <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2" action="#" onsubmit="handle" method="post">
             {{search_box_form.hidden_tag() }}
-            {{search_box_form.search(class='form-control',**{'placeholder':'Busqueda'})}}
+            {{search_box_form.search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
             <div class="nav-states">
                 <ul>
                     <li>Disponible</li>
@@ -36,7 +37,6 @@
                 </ul>
             </div>
         </form>
-
     </div>
     {{ macros.render_books(books,get_request,constants,my_books,requested_books,evaluate_request_form,get_lang,get_genre) }}
 </div>
