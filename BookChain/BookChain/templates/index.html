@@ -19,12 +19,12 @@
 
         <!-- Search form -->
         <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2" action="#" onsubmit="handle" method="post">
-            {{search_box_form.hidden_tag() }}
-            {{search_box_form.search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
-            
+            {{forms['search_box_form'].hidden_tag() }}
+            {{forms['search_box_form'].search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
+
         </form>
 
     </div>
-    {{ macros.render_books(books,None,constants,my_books,requested_books,request_form,get_lang,get_genre) }}
+    {{ macros.render_books(books,None,constants,my_books,requested_books,forms,get_lang,get_genre) }}
 </div>
     {% endblock %}

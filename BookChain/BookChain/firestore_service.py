@@ -58,7 +58,7 @@ def get_books(filter='',my_books=False,requested_books=False):
     #singleton
     query = db.collection('Books')
     docs = list(query.get())
-
+    docs.sort(key=lambda x: x.create_time.seconds, reverse=True)
     if(filter!=''):
         docs = [s for s in docs if filter.lower() in s.to_dict()['name'].lower()]
        

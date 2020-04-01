@@ -8,7 +8,7 @@ from flask_mail import Mail, Message
 from BookChain.sendmail import EmailController
 from flask import render_template,redirect,url_for,make_response,flash,request
 from BookChain import app,bootstrap
-from BookChain.forms import BookForm,SearchBoxForm,RequestForm ,EvaluateRequestForm
+from BookChain.forms import BookForm,SearchBoxForm,RequestForm ,EvaluateRequestForm,ReturnForm
 from BookChain.models import BookData, RequestData
 from BookChain.Utils.Constants import Constants
 import unittest
@@ -58,13 +58,16 @@ def index():
     else:
         books = get_books()
 
-
+    forms = {
+        'search_box_form':search_box_form, 
+        'request_form':request_form
+    }
     context = {
         'books':books,
-        'search_box_form':search_box_form,
+        
         'get_genre':get_genre,
         'get_lang':get_lang,
-        'request_form':request_form,
+        'forms':forms,
         'title':'Libros Disponibles',
         'constants':Constants,
         'my_books':False,
@@ -87,6 +90,7 @@ def index():
 def mybooks():
     """Renders the index page."""
     search_box_form = SearchBoxForm()
+    return_form = ReturnForm()
     requests = get_requests()
     evaluate_request_form = EvaluateRequestForm()
     if search_box_form.validate_on_submit():
@@ -118,14 +122,17 @@ def mybooks():
         
     
     #request = get_request('3717pkg9ZlssEk5BCuqg')
-
+    forms = {
+        'return_form':return_form,
+        'search_box_form':search_box_form,
+        'evaluate_request_form':evaluate_request_form
+    }
     context = {
         'books':books,
+        'forms':forms,
         'get_request': get_request,
         'get_genre':get_genre,
         'get_lang':get_lang,
-        'search_box_form':search_box_form,
-        'evaluate_request_form':evaluate_request_form,
         'title':'Mis Libros - Registrados',
         'constants':Constants,
         'my_books':True,
@@ -141,6 +148,7 @@ def requested_books():
     """Renders the index page."""
     search_box_form = SearchBoxForm()
     requests = get_requests()
+    return_form = ReturnForm()
     evaluate_request_form = EvaluateRequestForm()
     if search_box_form.validate_on_submit():
         search = search_box_form.search.data
@@ -150,14 +158,17 @@ def requested_books():
 
            
     #request = get_request('3717pkg9ZlssEk5BCuqg')
-
+    forms = {
+        'return_form':return_form,
+        'search_box_form':search_box_form,
+        'evaluate_request_form':evaluate_request_form,
+    }
     context = {
         'books':books,
+        'forms':forms,
         'get_request': get_request,
         'get_genre':get_genre,
         'get_lang':get_lang,
-        'search_box_form':search_box_form,
-        'evaluate_request_form':None,
         'title':'Mis Libros - Solicitados',
         'constants':Constants,
         'my_books':True,

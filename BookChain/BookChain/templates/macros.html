@@ -1,15 +1,15 @@
-{% import 'bootstrap/wtf.html' as wtf%}{% macro render_books(books,get_request,constants,my_books,requested_books,request_form,get_lang,get_genre) %}
+{% import 'bootstrap/wtf.html' as wtf%}{% macro render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre) %}
 <div class="container" >
     <!--<div class="card-columns">-->
     <div class="row">
         {%for book in books%}
         <div class="col-sm-4">
             {% if book.to_dict()['state'].id==constants.STATE_AVAILABLE %}
-            <div class="card border-success mb-3" id="{{book.id}}" style="border-bottom: 4px solid #28a745!important">
+            <div class="card border-success mb-3" id="{{book.id}}" style="border-bottom: 6px solid #28a745!important">
                 {% elif book.to_dict()['state'].id==constants.STATE_REQUESTED %}
-                <div class="card border-warning mb-3" id="{{book.id}}" style="border-bottom: 4px solid #ffc107!important">
+                <div class="card border-warning mb-3" id="{{book.id}}" style="border-bottom: 6px solid #ffc107!important">
                     {% else %}
-                    <div class="card border-primary mb-3" id="{{book.id}}" style="border-bottom: 4px solid #007bff!important">
+                    <div class="card border-primary mb-3" id="{{book.id}}" style="border-bottom: 6px solid #007bff!important">
                         {% endif %}
                         <!--<img class="card-img-top" src="{{url_for('static',filename='images/book-vector.jpg')}}" alt="Card image cap">-->
                         <img class="card-img-top" src="{{book.to_dict()['image_url']}}" alt="Card image cap" width="245px" height="340px">
@@ -22,7 +22,7 @@
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#detailsModal{{book.id}}">
                                 Detalles
                             </button>
-                            
+
 
                             {% if (book.to_dict()['state'].id==constants.STATE_AVAILABLE and my_books==False and requested_books==False)%}
                             <!-- Button trigger modal -->
@@ -40,11 +40,14 @@
 
 
                             <!--<a href="" class="btn btn-outline-info">Ver Solicitud</a>-->
-                            {% elif requested_books==True and book.to_dict()['state'].id!=constants.STATE_REQUESTED %}
+                            {% elif requested_books==True and book.to_dict()['state'].id==constants.STATE_LOANED %}
                             <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#givebackModal{{book.id}}">
                                 Devolver
                             </button>
-
+                            {% elif requested_books==False and book.to_dict()['state'].id==constants.STATE_WAITING_CONFIRM_RETURN%}
+                            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#confirmbackModal{{book.id}}">
+                                Confirmar Devolucion
+                            </button>
                             {% endif %}
                         </div>
 
@@ -93,14 +96,14 @@
                     </div>
                 </div>
                 {% if (book.to_dict()['state'].id==constants.STATE_AVAILABLE and my_books==False and requested_books==False)%}
-                <!-- Button trigger modal -->
+
                 <!-- Modal Request -->
                 <div class="modal fade" id="requestModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="requestModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <form method="post" action="" class="form-signin">
                             <div class="modal-content">
 
-                                {{ request_form.hidden_tag() }}
+                                {{ forms['request_form'].hidden_tag() }}
 
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Solicitar prestamo de Libro</h5>
@@ -109,11 +112,11 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    {{request_form.book(**{'id':'book','type':'hidden','value':book.id})}}
+                                    {{forms['request_form'].book(**{'id':'book','type':'hidden','value':book.id})}}
                                     <label>Cantidad de dias</label>
-                                    {{request_form.days(class='form-control',**{'placeholder':'Cantidad de dias','id':'days'})}}
+                                    {{forms['request_form'].days(class='form-control',**{'placeholder':'Cantidad de dias','id':'days'})}}
                                     <label>Comentario</label>
-                                    {{request_form.comment(class='form-control',**{'placeholder':'Comenterio','id':'comment'})}}
+                                    {{forms['request_form'].comment(class='form-control',**{'placeholder':'Comenterio','id':'comment'})}}
 
                                     <!--<input type="hidden" value="foo" name="user_id" />-->
 
@@ -121,7 +124,7 @@
                                 <div class="modal-footer">
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                                     <!--<button type="button" class="btn btn-primary">Enviar Solicitud</button>-->
-                                    {{request_form.submit(class='btn btn-primary')}}
+                                    {{forms['request_form'].submit(class='btn btn-primary')}}
                                 </div>
 
                             </div>
@@ -130,12 +133,12 @@
                 </div>
                 <!--<a href="" class="btn btn-outline-info">Solicitar</a>-->
                 {% elif book.to_dict()['state'].id==constants.STATE_REQUESTED and requested_books==False %}
-                <!-- Button trigger modal -->
+
                 <!-- Modal See request -->
                 <div class="modal fade" id="seerequestModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="seerequestModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <form method="post" action="" class="form-signin">
-                            {{ request_form.hidden_tag() }}
+                            {{ forms['evaluate_request_form'].hidden_tag() }}
 
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -155,15 +158,15 @@
                                     <label style="color: grey">{{x.comment}}</label>
                                     <br />
 
-                                    {{request_form.book(**{'id':'book','type':'hidden','value':book.id})}}
+                                    {{forms['evaluate_request_form'].book(**{'id':'book','type':'hidden','value':book.id})}}
 
-                                    {{request_form.request_id(**{'id':'request_id','type':'hidden','value':x.id})}}
+                                    {{forms['evaluate_request_form'].request_id(**{'id':'request_id','type':'hidden','value':x.id})}}
                                     {% if x.send_email==False%}
 
-                                    {{request_form.owner_comment(class='form-control',**{'placeholder':'Comentario','id':'owner_comment'})}}
+                                    {{forms['evaluate_request_form'].owner_comment(class='form-control',**{'placeholder':'Comentario','id':'owner_comment'})}}
 
                                     {%else%}
-                                    {{request_form.owner_comment(class='form-control',readonly='readonly',**{'type':'hidden','id':'owner_comment'})}}
+                                    {{forms['evaluate_request_form'].owner_comment(class='form-control',readonly='readonly',**{'type':'hidden','id':'owner_comment'})}}
                                     <script>document.getElementById('owner_comment').value = `{{x.owner_comment}}`; </script>
 
 
@@ -188,12 +191,12 @@
                                 </div>
                                 <div class="modal-footer">
 
-                                    {{request_form.denegated(class='btn btn-secondary')}}
+                                    {{forms['evaluate_request_form'].denegated(class='btn btn-secondary')}}
                                     {% if x.send_email==False%}
 
-                                    {{request_form.approved(class='btn btn-primary')}}
+                                    {{forms['evaluate_request_form'].approved(class='btn btn-primary')}}
                                     {%else%}
-                                    {{request_form.delivered(class='btn btn-primary')}}
+                                    {{forms['evaluate_request_form'].delivered(class='btn btn-primary')}}
 
                                     {% endif%}
 
@@ -206,26 +209,60 @@
                     </div>
                 </div>
                 <!--<a href="" class="btn btn-outline-info">Ver Solicitud</a>-->
-                {% elif requested_books==True and book.to_dict()['state'].id!=constants.STATE_REQUESTED %}
+                {% elif requested_books==True and book.to_dict()['state'].id==constants.STATE_LOANED %}
                 <!-- Modal giveback -->
                 <div class="modal fade" id="givebackModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <form method="post" action="" class="form-signin">
+                            {{ forms['return_form'].hidden_tag() }}
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">&#191; Estas seguro que deseas devolver el libro {{book.to_dict()['name']}} &#63;</h5>
+                                    
+                                 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
+                                    {{forms['return_form'].book(**{'id':'book','type':'hidden','value':book.id})}}
+                                    <!--<input type="hidden" value="foo" name="user_id" />-->
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <!--{{forms['return_form'].denegated(class='btn btn-secondary')}}-->
+                                    {{forms['return_form'].giveback(class='btn btn-primary')}}
+                                  
+
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {% elif my_books==True and book.to_dict()['state'].id==constants.STATE_WAITING_CONFIRM_RETURN%}
+                <!-- Modal confirmback -->
+                <div class="modal fade" id="confirmbackModal{{book.id}}" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <form method="post" action="" class="form-signin">
+                            {{ forms['return_form'].hidden_tag() }}
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">&#191; Confirmas la devolucion del libro {{book.to_dict()['name']}} &#63;</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    {{forms['return_form'].book(**{'id':'book','type':'hidden','value':book.id})}}
                                     <!--<input type="hidden" value="foo" name="user_id" />-->
 
                                 </div>
                                 <div class="modal-footer">
                                     <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
                                     <!--<button type="button" class="btn btn-primary">Enviar Solicitud</button>-->
-
+                                    {{forms['return_form'].return_approved(class='btn btn-primary')}}
                                 </div>
 
                             </div>

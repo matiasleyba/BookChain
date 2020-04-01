@@ -28,20 +28,26 @@
         
         <!-- Search form -->
         <form class="form-inline d-flex justify-content-center md-form form-sm active-cyan-2 mt-2" action="#" onsubmit="handle" method="post">
-            {{search_box_form.hidden_tag() }}
-            {{search_box_form.search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
+            {{forms['search_box_form'].hidden_tag() }}
+            {{forms['search_box_form'].search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
             <div class="nav-states">
                 <ul>
                     <li>Disponible</li>
                     <li>Solicitado</li>
                     <li>Prestado</li>
+                    <!-- var divsToHide = document.getElementsByClassName("card border-success mb-3"); //divsToHide is an array
+                     for(var i = 0; i < divsToHide.length; i++){
+                     divsToHide[i].style.opacity = 0.3; // or
+
+                     }-->
+                    <!--document.getElementsByClassName('card border-success mb-3')[1].style.opacity = 0.3;-->
                 </ul>
             </div>
         </form>
 
 
     </div>
-    {{ macros.render_books(books,get_request,constants,my_books,requested_books,evaluate_request_form,get_lang,get_genre) }}
+    {{ macros.render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre) }}
 </div>
 
 
