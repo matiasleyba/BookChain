@@ -11,8 +11,13 @@
     {% block title %}BookChain{%
     endblock title %}
 </title>
+{% assets "scss_all" %}
+<link rel="stylesheet" href="/static/gen/all.css">
+{% endassets %}
+<link rel='stylesheet' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css'>
 <link rel="stylesheet"
       href="{{ url_for('static',filename='content/mystyles.css')}}" />
+
 {%- endblock head %}
 <body {% block body_attribs %} class="text-center" {% endblock body_attribs %}>
     {% block body %}
@@ -38,7 +43,7 @@
             <p>bookchainsupport@gmail.com</p>
             <p class="text-center">&copy; Copyright 2020 by BookChain.</p>
         </footer>
-        
+
         {% block scripts %}
         {{ super() }}
         <script>
@@ -50,11 +55,12 @@
             });
 
         </script>
-
+        <script type="text/javascript" src="../static/scripts/filterCards.js"></script>
+        <script type="text/javascript" src="../static/scripts/rating.js"></script>
         {% endblock %}
     </div>
-        {% endblock
-        body %}
+    {% endblock
+    body %}
 
 </body>
 

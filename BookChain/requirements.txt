@@ -6,3 +6,6 @@ blinker
 firebase-admin
 flask-login
 flask-mail
+Flask-Scss
+flask-assets
+pyscss

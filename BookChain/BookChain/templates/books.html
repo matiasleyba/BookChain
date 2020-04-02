@@ -32,14 +32,15 @@
             {{forms['search_box_form'].search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
             <div class="nav-states">
                 <ul>
-                    <li>Disponible</li>
-                    <li>Solicitado</li>
-                    <li>Prestado</li>
+                    <li><a href="#" onclick="filterCards(1)">Disponibles</a></li>
+                    <li><a href="#" onclick="filterCards(2)">Solicitados</a></li>
+                    <li><a href="#" onclick="filterCards(3)">Prestados</a></li>
+                    <li><a href="#" onclick="filterCards(4)">Todos</a></li>
                     <!-- var divsToHide = document.getElementsByClassName("card border-success mb-3"); //divsToHide is an array
-                     for(var i = 0; i < divsToHide.length; i++){
-                     divsToHide[i].style.opacity = 0.3; // or
+     for(var i = 0; i < divsToHide.length; i++){
+     divsToHide[i].style.opacity = 0.3; // or
 
-                     }-->
+     }-->
                     <!--document.getElementsByClassName('card border-success mb-3')[1].style.opacity = 0.3;-->
                 </ul>
             </div>

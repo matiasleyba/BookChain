@@ -51,6 +51,6 @@ class EvaluateRequestForm(FlaskForm):
     delivered = SubmitField('Marcar como entregado')
 class ReturnForm(FlaskForm):
     book = StringField('book',validators=[DataRequired()])
-    return_approved = SubmitField('Marcar como entregado')
+    return_approved = SubmitField('Marcar como devuelto')
     denegated = SubmitField('Cancelar')
     giveback = SubmitField('Devolver')

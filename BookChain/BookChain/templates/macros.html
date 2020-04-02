@@ -5,11 +5,11 @@
         {%for book in books%}
         <div class="col-sm-4">
             {% if book.to_dict()['state'].id==constants.STATE_AVAILABLE %}
-            <div class="card border-success mb-3" id="{{book.id}}" style="border-bottom: 6px solid #28a745!important">
+            <div class="card border-success mb-3" id="{{book.id}}" name="available-card" style="border-bottom: 6px solid #28a745!important">
                 {% elif book.to_dict()['state'].id==constants.STATE_REQUESTED %}
-                <div class="card border-warning mb-3" id="{{book.id}}" style="border-bottom: 6px solid #ffc107!important">
+                <div class="card border-warning mb-3" id="{{book.id}}" name="requested-card"style="border-bottom: 6px solid #ffc107!important">
                     {% else %}
-                    <div class="card border-primary mb-3" id="{{book.id}}" style="border-bottom: 6px solid #007bff!important">
+                    <div class="card border-primary mb-3" id="{{book.id}}" name="loaned-card" style="border-bottom: 6px solid #007bff!important">
                         {% endif %}
                         <!--<img class="card-img-top" src="{{url_for('static',filename='images/book-vector.jpg')}}" alt="Card image cap">-->
                         <img class="card-img-top" src="{{book.to_dict()['image_url']}}" alt="Card image cap" width="245px" height="340px">
@@ -256,6 +256,56 @@
                                 </div>
                                 <div class="modal-body">
                                     {{forms['return_form'].book(**{'id':'book','type':'hidden','value':book.id})}}
+                                    <label>Calificacion del usuario :</label>
+                                    <br />
+                                    <div class="rating" data-vote="0">
+                                        <div class="div-star">
+                                            <div class="star">
+
+                                                <span class="full" data-value="1"></span>
+                                                <span class="half" data-value="0.5"></span>
+                                                <span class="selected"></span>
+
+                                            </div>
+
+                                            <div class="star">
+
+                                                <span class="full" data-value="2"></span>
+                                                <span class="half" data-value="1.5"></span>
+                                                <span class="selected"></span>
+
+                                            </div>
+
+                                            <div class="star">
+
+                                                <span class="full" data-value="3"></span>
+                                                <span class="half" data-value="2.5"></span>
+                                                <span class="selected"></span>
+
+                                            </div>
+
+                                            <div class="star">
+
+                                                <span class="full" data-value="4"></span>
+                                                <span class="half" data-value="3.5"></span>
+                                                <span class="selected"></span>
+
+                                            </div>
+
+                                            <div class="star">
+
+                                                <span class="full" data-value="5"></span>
+                                                <span class="half" data-value="4.5"></span>
+                                                <span class="selected"></span>
+
+                                            </div>
+                                        </div>
+                                        <div class="score">
+                                            <span class="score-rating js-score">0</span>
+                                            <span>/</span>
+                                            <span class="total">5</span>
+                                        </div>
+                                    </div>
                                     <!--<input type="hidden" value="foo" name="user_id" />-->
 
                                 </div>

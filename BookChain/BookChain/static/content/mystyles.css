@@ -77,6 +77,7 @@ body {
 .btn {
 	margin: 2px 0px;
 }
+
 .card:hover {
 	-ms-transform: scale(1.05); /* IE 9 */
 	-webkit-transform: scale(1.05); /* Safari 3-8 */
@@ -117,6 +118,9 @@ body {
 
 .nav-states ul li:nth-child(3):before {
 	color: #007bff!important;
+}
+.nav-states ul li:nth-child(4):before {
+		color: black !important;
 }
 #page-container {
 	position: relative;

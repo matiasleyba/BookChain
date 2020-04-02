@@ -1,0 +1,116 @@
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\000032}}
+.rating {
+  text-align: center;
+  position: relative; }
+
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\000039}}
+  .hidden {
+    opacity: 0; }
+
+    @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000313}}
+    .star {
+      display: inline-block;
+      margin: 5px;
+      font-size: 30px;
+      color: #dae0e5;
+      position: relative; }
+      @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000320}}
+      .star.animate {
+        -webkit-animation: stretch-bounce 0.5s ease-in-out; }
+        @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000324}}
+        .star.hidden {
+          opacity: 0; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000330}}
+.full:before {
+  font-family: fontAwesome;
+  display: inline-block;
+  content: "";
+  position: relative;
+  float: right;
+  z-index: 2; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000341}}
+.half:before {
+  font-family: fontAwesome;
+  content: "";
+  position: absolute;
+  float: left;
+  z-index: 3; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000351}}
+.star-colour {
+  color: #ffd700; }
+
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000357}}
+  @-webkit-keyframes stretch-bounce {
+    @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000357}}
+    0% {
+      -webkit-transform: scale(1);   }
+      @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000360}}
+      25% {
+        -webkit-transform: scale(1.5);   }
+        @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000363}}
+        50% {
+          -webkit-transform: scale(0.9);   }
+          @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000366}}
+          75% {
+            -webkit-transform: scale(1.2);   }
+            @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000369}}
+            100% {
+              -webkit-transform: scale(1);   }
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000375}}
+.selected:before {
+  font-family: fontAwesome;
+  display: inline-block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transform: scale(1);
+  opacity: 1;
+  z-index: 1; }
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000387}}
+  .selected.pulse:before {
+    -webkit-transform: scale(3);
+    opacity: 0; }
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\0000394}}
+.selected.is-animated:before {
+  transition: 1s ease-out; }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\00003102}}
+.score {
+  font-family: arial;
+  font-size: 20px;
+  color: dodgerblue;
+  margin-top: 20px; }
+
+  @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\00003110}}
+  .score-rating {
+    vertical-align: sup;
+    top: -5px;
+    position: relative;
+    font-size: 150%; }
+
+    @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\00003117}}
+    .total {
+      vertical-align: sub;
+      top: 0px;
+      position: relative;
+      font-size: 100%; }
+
+      @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\00003124}}
+      .average {
+        font-family: arial;
+        font-size: 20px;
+        color: indianred;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center; }
+        @media -sass-debug-info{filename{font-family:file\:\/\/C\:\\Users\\matias\.leyba\\source\\repos\\BookChain\\BookChain\\BookChain\\static\\scss\/rating\.scss}line{font-family:\00003133}}
+        .average .score-average {
+          padding-top: 30px; }

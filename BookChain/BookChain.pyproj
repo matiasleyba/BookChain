@@ -65,6 +65,7 @@
     <Folder Include="BookChain\models\" />
     <Folder Include="BookChain\firestore\" />
     <Folder Include="BookChain\flask-mail\" />
+    <Folder Include="BookChain\static\scss\" />
     <Folder Include="BookChain\tests\" />
     <Folder Include="BookChain\static\images\" />
     <Folder Include="BookChain\Utils\" />
@@ -82,6 +83,9 @@
     <Content Include="BookChain\static\images\book.png" />
     <Content Include="BookChain\static\images\bookgreen.png" />
     <Content Include="BookChain\static\images\notification_alert.png" />
+    <Content Include="BookChain\static\scripts\filterCards.js" />
+    <Content Include="BookChain\static\scripts\rating.js" />
+    <Content Include="BookChain\static\scss\rating.scss" />
     <Content Include="BookChain\templates\404.html" />
     <Content Include="BookChain\templates\requested-books.html" />
     <Content Include="BookChain\templates\books.html" />

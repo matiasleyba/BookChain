@@ -128,6 +128,11 @@ def delivered_request(book_id):
     book = db.collection('Books').document(book_id)
     state = db.document('States/loaned')
     book.update({'state':state})
+def giveback(book_id):
+    book = db.collection('Books').document(book_id)
+    state = db.document('States/waiting_confirm_return')
+    book.update({'state':state})
+
     
   
 
