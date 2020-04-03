@@ -14,7 +14,7 @@ from BookChain.Utils.Constants import Constants
 import unittest
 import wtforms
 
-from BookChain.firestore_service import get_users ,get_books ,create_book,send_request,get_requests,get_request , giveback,denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre,delivered_request
+from BookChain.firestore_service import get_users ,get_rating,get_books ,approve_return,create_book,send_request,get_requests,get_request , giveback,denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre,delivered_request
 from flask_login import login_required ,current_user
 import os
 
@@ -77,7 +77,7 @@ def index():
         request_data= RequestData(request_form.book.data,user,request_form.days.data,request_form.comment.data)
         send_request(request_data)
         #mandar mail
-        flash('Solicitud Enviada , se notificara al propietario.')
+        flash('Solicitud Enviada , se notificara al propietario para que apruebe la solicitud y se contacte contigo.')
         response = make_response(redirect('/index'))
         return response
         #return render_template('index.html' ,**context)
@@ -89,6 +89,7 @@ def index():
 @login_required
 def mybooks():
     """Renders the index page."""
+    user = current_user.id
     search_box_form = SearchBoxForm()
     return_form = ReturnForm()
     requests = get_requests()
@@ -102,8 +103,8 @@ def mybooks():
     if evaluate_request_form.validate_on_submit():
         if evaluate_request_form.approved.data:
             approve_request(evaluate_request_form.request_id.data,evaluate_request_form.owner_comment.data)
-            flash('La solicitud fue aprobada , ahora puedes ver los datos del solicitante y coordinar la entrega del libro.Cuando entregues el libro marca el libro como entregado.')
-            flash('Cuando entregues el libro marca el libro como entregado.')
+            flash('La solicitud fue aprobada ,puedes ver los datos del solicitante y coordinar la entrega del libro.')
+            flash('Cuando entregues el libro marca el libro como entregado en la solicitud.')
             
         elif evaluate_request_form.denegated.data:
             denegate_request(evaluate_request_form.book.data)
@@ -116,10 +117,14 @@ def mybooks():
         response = make_response(redirect('/mybooks'))
         return response
 
-    
+    if return_form.validate_on_submit():
+        if return_form.return_approved.data:
+            approve_return(return_form.book.data,return_form.rating.data,return_form.user.data)
+            flash('Se marco el libro como devuelto , ahora el libro esta disponible nuevamente , gracias por colaborar !')
+        response = make_response(redirect('/mybooks'))
+        return response
 
-
-    
+     
     
     #request = get_request('3717pkg9ZlssEk5BCuqg')
     forms = {
@@ -131,6 +136,7 @@ def mybooks():
         'books':books,
         'forms':forms,
         'get_request': get_request,
+        'get_rating':get_rating,
         'get_genre':get_genre,
         'get_lang':get_lang,
         'title':'Mis Libros - Registrados',
@@ -157,8 +163,9 @@ def requested_books():
         books = get_books(requested_books=True)
     if return_form.validate_on_submit():
         if return_form.giveback.data:
-            giveback(evaluate_request_form.book.data)
+            giveback(return_form.book.data)
             flash('Se marco el libro como devuelto , ahora el dueño debe aprobar la devolucion , gracias por colaborar !')
+       
         response = make_response(redirect('/requested-books'))
         return response
            

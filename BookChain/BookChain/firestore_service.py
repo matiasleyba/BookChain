@@ -95,6 +95,15 @@ def get_requests():
     docs.sort(key=lambda x: x.create_time.seconds, reverse=True)
     #next((i.to_dict()['comment'] for i in requests if i.to_dict()['book'].id == '3717pkg9ZlssEk5BCuqg'),None)
     return docs
+def get_rating(user_id):
+    ratings_ref=db.collection('Ratings')
+    user = db.collection('Users').document(user_id)
+    query = ratings_ref.where('user', '==', user)
+    #docs = query.stream()
+    docs = list(query.get())
+    average = sum(rating.to_dict()['rating'] for rating in docs)/float(len(docs))
+    average = str(round(average, 2))
+    return average
 def get_request(book_id):
     request_ref=db.collection('Requests')
     book = db.collection('Books').document(book_id)
@@ -131,6 +140,13 @@ def delivered_request(book_id):
 def giveback(book_id):
     book = db.collection('Books').document(book_id)
     state = db.document('States/waiting_confirm_return')
+    book.update({'state':state})
+def approve_return(book_id,rating,user_id):
+    rating_ref=db.collection('Ratings').document()
+    user = db.document('Users/{}'.format(user_id))
+    rating_ref.set({'rating':rating,'user':user})
+    book = db.collection('Books').document(book_id)
+    state = db.document('States/available')
     book.update({'state':state})
 
     

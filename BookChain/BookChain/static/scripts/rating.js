@@ -22,7 +22,8 @@ $(function() {
       setHalfStarState(this)
     }
     $(this).closest('.rating').find('.js-score').text($(this).data('value'));
-
+    $(this).closest('.rating').find('.js-scorehidden').text($(this).data('value'));
+    $(this).closest('.rating').find('.js-scorehidden').val($(this).data('value'));
     $(this).closest('.rating').data('vote', $(this).data('value'));
     calculateAverage()
     console.log(parseInt($(this).data('value')));
@@ -34,6 +35,8 @@ $(function() {
       setFullStarState(this)
     }
     $(this).closest('.rating').find('.js-score').text($(this).data('value'));
+    $(this).closest('.rating').find('.js-scorehidden').text($(this).data('value'));
+    $(this).closest('.rating').find('.js-scorehidden').val($(this).data('value'));
 
     $(this).find('js-average').text(parseInt($(this).data('value')));
 

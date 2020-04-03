@@ -31,14 +31,16 @@
             {{forms['search_box_form'].search(class='form-control form-control-underlined',**{'placeholder':'Busqueda'})}}
             <div class="nav-states">
                 <ul>
-                    <li>Disponible</li>
-                    <li>Solicitado</li>
-                    <li>Prestado</li>
+                    <li><a href="#" onclick="filterCards(1)">Disponibles</a></li>
+                    <li><a href="#" onclick="filterCards(2)">Solicitados</a></li>
+                    <li><a href="#" onclick="filterCards(3)">Prestados</a></li>
+                    <li><a href="#" onclick="filterCards(4)">Todos</a></li>
+
                 </ul>
             </div>
         </form>
     </div>
-    {{ macros.render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre) }}
+    {{ macros.render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre,None) }}
 </div>
 
 

@@ -1,4 +1,4 @@
-{% import 'bootstrap/wtf.html' as wtf%}{% macro render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre) %}
+{% import 'bootstrap/wtf.html' as wtf%}{% macro render_books(books,get_request,constants,my_books,requested_books,forms,get_lang,get_genre,get_rating) %}
 <div class="container" >
     <!--<div class="card-columns">-->
     <div class="row">
@@ -174,7 +174,7 @@
 
                                     {% endif %}
                                     <hr />
-                                    {% if x.send_email %}
+
                                     <label>Datos del solicitante :</label>
                                     <br />
                                     <label style="color: grey">{{x.user.to_dict()['name']}} {{x.user.to_dict()['last_name']}}</label>
@@ -186,7 +186,12 @@
                                     <label>Mail :</label>
                                     <br />
                                     <label style="color: grey">{{x.user.id}}</label>
-                                    {% endif %}
+                                    <br />
+                                    <label>Calificacion :</label>
+                                    <br />
+                                    {% set rating = get_rating(x.user.id) %}
+                                    <label style="color: grey">{{rating}}</label>
+
 
                                 </div>
                                 <div class="modal-footer">
@@ -304,6 +309,9 @@
                                             <span class="score-rating js-score">0</span>
                                             <span>/</span>
                                             <span class="total">5</span>
+                                            {% set x = get_request(book.id) %}
+                                            {{forms['return_form'].user(**{'type':'hidden','value':x.user.id})}}
+                                            {{forms['return_form'].rating(class='score-rating js-scorehidden',**{'type':'hidden'})}}
                                         </div>
                                     </div>
                                     <!--<input type="hidden" value="foo" name="user_id" />-->

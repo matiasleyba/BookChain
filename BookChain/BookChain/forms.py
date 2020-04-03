@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField , SelectField ,TextAreaField ,BooleanField,IntegerField
+from wtforms.fields import StringField,FloatField, PasswordField, SubmitField , SelectField ,TextAreaField ,BooleanField,IntegerField
 from wtforms.validators import DataRequired ,Required
 from wtforms.fields.html5 import EmailField
 from flask.ext.wtf import Form
@@ -52,5 +52,7 @@ class EvaluateRequestForm(FlaskForm):
 class ReturnForm(FlaskForm):
     book = StringField('book',validators=[DataRequired()])
     return_approved = SubmitField('Marcar como devuelto')
+    rating = FloatField('rating')
+    user = StringField('user')
     denegated = SubmitField('Cancelar')
     giveback = SubmitField('Devolver')
