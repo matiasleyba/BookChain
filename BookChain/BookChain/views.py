@@ -14,7 +14,7 @@ from BookChain.Utils.Constants import Constants
 import unittest
 import wtforms
 
-from BookChain.firestore_service import get_users ,get_rating,get_books ,approve_return,create_book,send_request,get_requests,get_request , giveback,denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre,delivered_request
+from BookChain.firestore_service import get_users ,get_rating,get_books ,get_owner_book,approve_return,create_book,send_request,get_requests,get_request , giveback,denegate_request,approve_request,get_genres,get_langs,get_lang,get_genre,delivered_request
 from flask_login import login_required ,current_user
 import os
 
@@ -76,7 +76,8 @@ def index():
     if request_form.validate_on_submit():
         request_data= RequestData(request_form.book.data,user,request_form.days.data,request_form.comment.data)
         send_request(request_data)
-        #mandar mail
+        owner = get_owner_book(request_form.book.data)
+        EmailController.SendEmail(owner)
         flash('Solicitud Enviada , se notificara al propietario para que apruebe la solicitud y se contacte contigo.')
         response = make_response(redirect('/index'))
         return response

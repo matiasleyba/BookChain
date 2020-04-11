@@ -12,7 +12,7 @@
                     <div class="card border-primary mb-3" id="{{book.id}}" name="loaned-card" style="border-bottom: 6px solid #007bff!important">
                         {% endif %}
                         <!--<img class="card-img-top" src="{{url_for('static',filename='images/book-vector.jpg')}}" alt="Card image cap">-->
-                        <img class="card-img-top" src="{{book.to_dict()['image_url']}}" alt="Card image cap" width="245px" height="340px">
+                        <img class="card-img-top" src="{{book.to_dict()['image_url']}}" alt="Card image cap">
 
                         <div class="card-body">
                             <h5 class="card-title">{{book.to_dict()['name']}}</h5>

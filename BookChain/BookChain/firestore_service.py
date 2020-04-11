@@ -2,8 +2,8 @@ import firebase_admin
 from flask import url_for
 from firebase_admin import credentials
 from flask_login import current_user
-
 from firebase_admin import firestore
+
 import os
 dirname = os.path.dirname(__file__)
 filename = os.path.join(dirname, 'firestore/bookchain-flask-firebase-adminsdk-qzuco-2c4b92bd49.json')
@@ -50,6 +50,9 @@ def get_langs():
     langs_ref=db.collection('Langs').get()
     docs = list(langs_ref)
     return docs
+def get_owner_book(book_id):
+    book_ref = db.document('Books/{}'.format(book_id)).get()
+    return book_ref.to_dict()['user'].id
 def get_lang(lang):
     lang_ref = db.document('Langs/{}'.format(lang.id)).get()
     return lang_ref.to_dict()['name']
@@ -66,7 +69,7 @@ def get_books(filter='',my_books=False,requested_books=False):
     if(my_books==True):
         docs = [x for x in docs if x.to_dict()['user'].id == user.id]
     elif (requested_books==True):
-        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='loaned' or x.to_dict()['state'].id=='requested')]
+        docs = [x for x in docs if (x.to_dict()['user'].id != user.id and (x.to_dict()['state'].id=='loaned' or x.to_dict()['state'].id=='requested')) and check_request(x.id)==user.id ]
     else:
         docs = [x for x in docs if (x.to_dict()['user'].id != user.id and x.to_dict()['state'].id=='available')]
     return docs
@@ -88,7 +91,7 @@ def send_request(request_data):
     state = db.document('States/requested')
     request_ref.set({'book':book,'user':user,'days':request_data.days,'comment':request_data.comment,'send_email':False,'owner_comment':''})
     book.update({'state':state})
-
+    
 def get_requests():
     request_ref=db.collection('Requests').get()
     docs = list(request_ref)
@@ -101,8 +104,12 @@ def get_rating(user_id):
     query = ratings_ref.where('user', '==', user)
     #docs = query.stream()
     docs = list(query.get())
-    average = sum(rating.to_dict()['rating'] for rating in docs)/float(len(docs))
-    average = str(round(average, 2))
+    try:
+        average = sum(rating.to_dict()['rating'] for rating in docs)/float(len(docs))
+        average = str(round(average, 2))
+    except :
+        return 0
+ 
     return average
 def get_request(book_id):
     request_ref=db.collection('Requests')
@@ -122,6 +129,18 @@ def get_request(book_id):
             'user':user
         }
         return request
+    except IndexError:
+        return ''
+
+def check_request(book_id):
+    request_ref=db.collection('Requests')
+    book = db.collection('Books').document(book_id)
+    query = request_ref.where('book', '==', book)
+    #docs = query.stream()
+    docs = list(query.get())
+    docs.sort(key=lambda x: x.create_time.seconds, reverse=True)
+    try:
+        return list(docs)[0].to_dict()['user'].id
     except IndexError:
         return ''
 

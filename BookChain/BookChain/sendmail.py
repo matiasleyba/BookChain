@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask , render_template
 from flask_mail import Mail, Message
 from BookChain import app
 import os
@@ -21,9 +21,9 @@ mail = Mail(app)
 class EmailController:
 
     @staticmethod
-    def SendEmail():
-        msg = Message(subject="Hello",
+    def SendEmail(mail_user):
+        msg = Message(subject="BookChain - Notificacion",
                       sender=app.config.get("MAIL_USERNAME"),
-                      recipients=["matileyba@gmail.com"], # replace with your email for testing
-                      body="This is a test email I sent with Gmail and Python!")
+                      recipients=[mail_user]) # replace with your email for testing
+        msg.html= render_template("email.html")
         mail.send(msg)
