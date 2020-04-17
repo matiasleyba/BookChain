@@ -202,7 +202,18 @@ footer {
 	border-radius: 0;
 	padding-left: 0;
 }
-
-
+#card_book {
+	padding-top: 3%;
+}
+#book_data {
+	float: left;
+	width: 80%;
+	padding-top: 3%;
+	padding-right: 5%;
+}
+#btn-submit {
+	width:50%;
+	margin-left:25%;
+}
             
             

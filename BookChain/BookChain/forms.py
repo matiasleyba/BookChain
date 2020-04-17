@@ -29,7 +29,7 @@ class BookForm(FlaskForm):
     author = StringField('Autor',validators=[DataRequired()])
     lang = SelectField('Idioma', validators=[DataRequired()])
     image_url = StringField('URL Portada')
-    submit = SubmitField('Crear')
+    submit = SubmitField('Registrar')
 
 class SearchBoxForm(FlaskForm):
     search = StringField('Buscar')
